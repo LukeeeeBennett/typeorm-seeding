@@ -25,7 +25,13 @@ export class CommandUtils {
       const instance = new seederExport()
       if (instance instanceof Seeder) {
         seeders.push(seederExport)
+      } else {
+        console.warning(`Seeder ${seederExport.name} is not an instanceof Seeder. Ignoring file.`);
       }
+    }
+
+    if (seeders.length === 0) {
+      throw new Error(`No valid default seeders found`)
     }
 
     return seeders
